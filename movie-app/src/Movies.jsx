@@ -6,6 +6,8 @@ import Movielist from './Movielist';
 import Genrearray from './Genrearray';
 import Nav from './Nav';
 
+
+
 import _ from "lodash";
 
 import { useState } from 'react';
@@ -97,8 +99,11 @@ const[order,setOrder]=useState('asc');
   return(
     <>
     <div>
-     <Nav></Nav>
-
+    
+   
+  
+    
+      
   
   <div className='m-12	margin: 3rem;  border-2 border-light-blue-100 h-36	height: 9rem; p-3	padding: 0.75rem; bg-gray-300	--tw-bg-opacity: 1;
 background-color: rgba(209, 213, 219, var(--tw-bg-opacity);   '>

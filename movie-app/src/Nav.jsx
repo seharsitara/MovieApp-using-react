@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import  logo from './assets/logo.jpg'
+import {Link}  from "react-router-dom";
 
 
 const Nav=()=>{
@@ -22,9 +23,9 @@ const btnHandler=()=>{
     
       <ul className="hidden md:flex md:items-center md:justify-between md:gap-4 font-semibold text-xl  xl:text-2xl md:cursor-pointer lg:gap-8">
         <li className="font-bold p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><a href='#'>Vidly</a></li>
-        <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><a href='#'>Movies </a></li>
-        <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><a href='#'>Customer</a></li>
-        <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><a href='#'>Rental</a></li>
+        <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/movies">Movies </Link></li>
+        <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/customer">Customer</Link></li>
+        <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/rental">Rental</Link></li>
       </ul>
   
       <button className='block md:hidden  cursor-pointer' onClick={btnHandler}  >
