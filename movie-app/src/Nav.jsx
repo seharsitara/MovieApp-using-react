@@ -22,7 +22,7 @@ const btnHandler=()=>{
     </div>
     
       <ul className="hidden md:flex md:items-center md:justify-between md:gap-4 font-semibold text-xl  xl:text-2xl md:cursor-pointer lg:gap-8">
-        <li className="font-bold p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><a href='#'>Vidly</a></li>
+        <li className="font-bold p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to='/vidly'>Vidly</Link></li>
         <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/movies">Movies </Link></li>
         <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/customer">Customer</Link></li>
         <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/rental">Rental</Link></li>

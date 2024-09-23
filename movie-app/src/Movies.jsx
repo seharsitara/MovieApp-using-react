@@ -4,7 +4,7 @@ import Moviestable from './Moviestable';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Movielist from './Movielist';
 import Genrearray from './Genrearray';
-import Nav from './Nav';
+
 
 
 

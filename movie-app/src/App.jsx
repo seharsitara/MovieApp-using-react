@@ -20,6 +20,7 @@ function App() {
   return (
     <>
       <Nav></Nav>
+      <div>
       <Routes>
       <Route exact path="/movies" element={<Movies/>}></Route>
      <Route path="/customer" element={<Customer/>}></Route>
@@ -27,7 +28,7 @@ function App() {
      <Route path="/not-found" element={<Notfound/>}></Route>
      <Route path="*" element={<Navigate to="/not-found" />} />
      </Routes>
-    <Movies></Movies>
+     </div>
     </>
   )
 }

@@ -4,9 +4,7 @@ const Customer=()=>{
       return(
         <>
    <h1>Customer</h1>
-           {console.log('customer')
-}
-
+           
         </>
       );
 
