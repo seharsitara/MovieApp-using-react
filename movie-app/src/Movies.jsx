@@ -4,8 +4,8 @@ import Moviestable from './Moviestable';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Movielist from './Movielist';
 import Genrearray from './Genrearray';
-
-
+import Customer from './Customer';
+import Rental from './Rental';
 
 
 import _ from "lodash";
@@ -99,12 +99,7 @@ const[order,setOrder]=useState('asc');
   return(
     <>
     <div>
-    
-   
-  
-    
-      
-  
+     
   <div className='m-12	margin: 3rem;  border-2 border-light-blue-100 h-36	height: 9rem; p-3	padding: 0.75rem; bg-gray-300	--tw-bg-opacity: 1;
 background-color: rgba(209, 213, 219, var(--tw-bg-opacity);   '>
     <Movielist  	className='py-1' 

@@ -1,5 +1,6 @@
 import React from "react";
 import Like from "./Like";
+import {Link} from "react-router-dom";
 
 
 const Moviestable=(props)=>{
@@ -24,7 +25,7 @@ const Moviestable=(props)=>{
        
         {sort.map((movie)=>(
           <tr key={movie.id} 	 >
-            <td className=' m-20	margin: 5rem; /* 80px */ p-3.5	padding: 0.875rem; /* 14px */'>{movie.title} </td>
+            <td className=' m-20	margin: 5rem; /* 80px */ p-3.5	padding: 0.875rem; /* 14px */'><Link to={`/moviestitle/${movie.id}`} >{movie.title}</Link></td>
             <td className=' m-20	margin: 5rem;/* 80px */ padding: 0.875rem; /* 14px */'>{movie.genre.name} </td>
             <td className='  m-20	margin: 5rem; /* 80px */ p-3.5 padding: 0.875rem; /* 14px */'>{movie.stock} </td>
             <td className=' m-20	margin: 5rem; /* 80px */ p-3.5  padding: 0.875rem; /* 14px */'>{movie.rating} </td>

@@ -1,15 +1,10 @@
-import React from "react";
+import React from "react"
 
 const Notfound=()=>{
-      return(
-        <>
-   <h1>Notfound</h1>
-
-
-
-        </>
-      );
-
-
+    return(
+      <>
+      <h1>Not Found</h1>
+      </>
+    );
 }
 export default Notfound;

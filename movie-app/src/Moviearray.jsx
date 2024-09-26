@@ -1,4 +1,5 @@
 import * as genresAPI from  "./Genrearray";
+import {Link} from "react-router-dom";
    
    const Moviearray=()=>{
     const movies = [
@@ -98,8 +99,10 @@ import * as genresAPI from  "./Genrearray";
           rating: 8.2
       }
   ];
-    return movies;
-
+    return ( movies
+  
+    );
+              
 
    }
 
