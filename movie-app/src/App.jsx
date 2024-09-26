@@ -25,7 +25,7 @@ function App() {
       <div>
       <Routes>
       <Route path="/moviestitle/:id" element={<Movieform/>}></Route>
-      <Route path="/movies" element={<Movies/>}></Route>
+      <Route path="/" element={<Movies/>}></Route>
       <Route path="/customer" element={<Customer/>}></Route>
      <Route path="/rental" element={<Rental/>}></Route>
 

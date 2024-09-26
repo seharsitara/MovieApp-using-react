@@ -10,7 +10,7 @@ const Nav=()=>{
     const location = useLocation();
 
   // If the path is '/loginform', the navbar will be hidden
-   const showNavBar = location.pathname === '/loginform' && '/movies' && '/rental' && '/customer';
+   const showNavBar = location.pathname === '/loginform' && '/' && '/rental' && '/customer';
    
     
 
@@ -31,7 +31,7 @@ const btnHandler=()=>{
     
     <ul className="hidden md:flex md:items-center md:justify-between md:gap-4 font-semibold text-xl  xl:text-2xl md:cursor-pointer lg:gap-8">
         <li className="font-bold p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to='/vidly'>Vidly</Link></li>
-        <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/movies">Movies </Link></li>
+        <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/">Movies </Link></li>
         <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/customer">Customer</Link></li>
         <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/rental">Rental</Link></li>
         <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/loginform">Login</Link></li>
@@ -46,7 +46,7 @@ const btnHandler=()=>{
       
          <li className='w-full p-4 text-center font-bold list-none hover:bg-red-950'> <Link
          to='/vily'>Vidly</Link></li>
-         <li className='w-full p-4 text-center list-none  hover:bg-red-950'> <Link to='/movies'>Movies</Link></li>
+         <li className='w-full p-4 text-center list-none  hover:bg-red-950'> <Link to='/'>Movies</Link></li>
          <li className='w-full p-4 text-center list-none  hover:bg-red-950'> <Link to='/customer'>Customer</Link></li>
          <li className='w-full p-4 text-center list-none  hover:bg-red-950'> <Link to='/rental'>Rental</Link></li>
          <li className='w-full p-4 text-center list-none  hover:bg-red-950'> <Link to='/loginform'>Login</Link></li>
