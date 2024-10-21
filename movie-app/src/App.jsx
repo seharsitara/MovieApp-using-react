@@ -13,6 +13,7 @@ import Movieform from './Movieform'
 import Loginform from './Loginform'
 import { useLocation } from 'react-router-dom'
 import Register from './Register'
+import Movieloginform from './Movieloginform'
 
 
 function App() {
@@ -28,7 +29,9 @@ function App() {
         
       <Routes>
       <Route path="/moviestitle/:id" element={<Movieform/>}></Route>
-      <Route path="/register" element={<Register/>}></Route>
+      <Route path="/registrationform" element={<Register/>}></Route>
+      <Route path="/moviesform" element={<Movieloginform />} />
+        
       <Route path="/loginform" element={<Loginform/>}></Route>
       <Route path="/movies" element={<Movies/>}></Route>
       <Route path="/customer" element={<Customer/>}></Route>

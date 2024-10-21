@@ -53,8 +53,15 @@ const validation=schema.validate(data);
 }
 
 }
+const hasErrors = Object.values(errors).some(error => error !== null && error !== undefined);
+console.log(hasErrors)
+// Check if the form is valid: no errors and all data fields are non-empty
+const isFormValid = !hasErrors && Object.keys(data).every(key => data[key].trim() !== '');
 
-    const isFormValid = Object.keys(errors).length === 0 && Object.keys(data).every(key => data[key] !== '');
+// Debugging logs
+console.log("Errors:", errors);
+console.log("Data:", data);
+console.log("Is form valid:", isFormValid);
 
 
 
@@ -84,7 +91,7 @@ const validation=schema.validate(data);
     {errors.email && (<span  className={`font-medium text-base p-2 rounded inline-block md:w-full md:ml-20  w-full ${errors.email.includes('correct') ?  'bg-green-200 ': 'bg-red-200 '}`}>{errors.email}</span>)
     }
     
-    <button className={` border-2 border-red-900 rounded md:mt-10 absolute md:left-32 md:p-2 left-10 p-2 mt-40 ${!isFormValid ? "bg-red-400" : "bg-red-900" }`} disabled={!isFormValid} >Register</button>
+    <button className={`border-2 border-red-900 rounded md:mt-10 absolute md:left-32 md:p-2 left-10 p-2 mt-40 ${isFormValid ? "bg-red-900 cursor-pointer" : "bg-red-400 cursor-not-allowed" }`} disabled={!isFormValid} >Register</button>
   </form>
   </div>
 

@@ -51,8 +51,12 @@ const onChangeHandler=(e)=>{
 
   }
   
-   const isFormValid = Object.keys(errors).length === 0 && Object.keys(data).every(key => data[key] !== '');
-
+  const hasErrors = Object.values(errors).some(error => error !== null && error !== undefined);
+  console.log(hasErrors)
+  // Check if the form is valid: no errors and all data fields are non-empty
+  const isFormValid = !hasErrors && Object.keys(data).every(key => data[key].trim() !== '');
+  
+  
   return(
     <div className="w-full mt-28">
   <form className="text-2xl font-semibold md:w-3/4 " onSubmit={handleSubmit}>
@@ -67,7 +71,7 @@ const onChangeHandler=(e)=>{
      focus:outline-none s focus:bg-blue-50 " autoFocus/>
     {errors.password && (<span  className={`font-medium text-base p-2 rounded inline-block md:w-full md:ml-20  w-full ${errors.password.includes('correct') ?  'bg-green-200 ': 'bg-red-200 '}`}>{errors.password}</span>)
     }
-    <button className={` border-2 border-red-900 rounded md:mt-10 absolute md:left-32 md:p-2 left-10 p-2 mt-40 ${!isFormValid ? "bg-red-400" : "bg-red-900" }`} disabled={!isFormValid} >Login</button>
+    <button className={`cursor-pointer border-2 border-red-900 rounded md:mt-10 absolute md:left-32 md:p-2 left-10 p-2 mt-40 ${!isFormValid ? "bg-red-400 cursor-not-allowed" : "bg-red-900 cursor-pointer" }`} disabled={!isFormValid} >Login</button>
   </form>
   </div>
   );

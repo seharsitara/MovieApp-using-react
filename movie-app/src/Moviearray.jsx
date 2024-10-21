@@ -2,6 +2,10 @@ import * as genresAPI from  "./Genrearray";
 import {Link} from "react-router-dom";
    
    const Moviearray=()=>{
+  
+
+
+    
     const movies = [
       // Comedy
       {
@@ -99,11 +103,15 @@ import {Link} from "react-router-dom";
           rating: 8.2
       }
   ];
-    return ( movies
-  
+    return ( 
+      movies
     );
               
 
-   }
+   
+
+   
+
+  }
 
    export default Moviearray;
