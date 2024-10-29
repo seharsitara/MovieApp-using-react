@@ -3,9 +3,7 @@ const Movielist=(props)=>{
 const {items,allMovies,genreSelect}=props;
 console.log(`itmsss:${items}`)
 
- 
-
-  return(
+ return(
      
         <ul className="cursor-pointer">
         {items.map((item)=>(
@@ -18,14 +16,7 @@ console.log(`itmsss:${items}`)
 
         ))}
          
-         
-          
-         
-          
-       
-         
-        
-        </ul>
+   </ul>
       
 
   );

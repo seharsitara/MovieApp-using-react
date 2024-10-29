@@ -1,43 +1,61 @@
 import Pagination from './Pagination';
-import Moviearray from './Moviearray';
 import Moviestable from './Moviestable';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Movielist from './Movielist';
-import Genrearray from './Genrearray';
+import { movieArray, getMovies } from './Moviearray';
+import {genres, getGenres} from './Genrearray';
 import Customer from './Customer';
 import Rental from './Rental';
-
-
-import _ from "lodash";
-
-import { useState } from 'react';
+import _, { get } from "lodash";
+import { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import SearchBox from './Searchbox';
+
+
 
 const Movies=()=>{
-  const callMovie= Moviearray();
-  const  pageCount=4;
-  const genreArr=Genrearray();
+  //const [callMovie , setCallMovie] = useState(Moviearray());
+   const [callMovie,setCallMovie] = useState([]);
+  const  [pageCount,setPageCount]=useState(4);
+  const [searchQuery,setSearchQuery]=useState("");
+ 
+    let [callGenre,setCallGenre]=useState([]);
  // console.log(genreArr)
  
   let [currentPage, setCurrentPage]=useState(1);
  
- const[genreSelect,setGenreSelect]=useState(null)
+ const[genreSelect,setGenreSelect]=useState(null);
  
  // const[allGenre,setAllGenre]=useState([]);
   //const [movieArr,setMovieArr]=useState([]);
-
-
+  //callGenre = [{id:" ",name:"All Genres "},...getGenres()]
+  //console.log(`hhhhhhhhh ${callGenre}`)
+  
+  useEffect(() => {
+    // Check what is fetched
+    
+    const genresList = [{ _id: "", name: "All Genres" }, ...getGenres()];
+    setCallGenre(genresList);
+    
+    setCallMovie(movieArray());
+   
+  }, []);
   
   
+
 
   console.log(callMovie)
 
   const[path,setPath]=useState('path');
 const[order,setOrder]=useState('asc');
 
-
-  const filteredMov = genreSelect && genreSelect.id?
-    callMovie.filter((m)=> m.genre.name===genreSelect.name  )  : callMovie;
+ let filteredMov=callMovie;
+ if(searchQuery){
+   filteredMov=callMovie.filter((m)=> m.title.toLowerCase().startsWith(searchQuery.toLowerCase()));
+ }
+ else if(genreSelect && genreSelect.id){
+  filteredMov= callMovie.filter((m)=> m.genre.id === genreSelect.id )
+ }
   
     const sorting=_.orderBy(filteredMov,[path],[order]);
 
@@ -49,8 +67,8 @@ const[order,setOrder]=useState('asc');
    //   setSort(filteredMov);
     //}
   
-    const Genre=[{name:"All Genres "},...Genrearray()]
-
+   
+    
     
 
   const likedBtn=(movie)=>{
@@ -67,8 +85,16 @@ const[order,setOrder]=useState('asc');
     
   }
 
+  const handleSearchbox=(e)=>{
+     const query= e.target.value;
+     console.log(`queryyyyyyyyyyyyyyyyy ${query}`)
+     setSearchQuery(query);
+     setCurrentPage(1)
+    setGenreSelect(null);
+  }
+
  const allMovies=(item)=>{
-    console.log(`genre:${item}`)
+    console.log(`genreeeeeee:${item}`)
     setGenreSelect(item)
     setCurrentPage(1);
     
@@ -95,17 +121,19 @@ const[order,setOrder]=useState('asc');
 }
  }
 
+ 
 
-
+   
   return(
     <>
     <div>
      
   <div className='m-12	margin: 3rem;  border-2 border-light-blue-100 h-36	height: 9rem; p-3	padding: 0.75rem; bg-gray-300	--tw-bg-opacity: 1;
 background-color: rgba(209, 213, 219, var(--tw-bg-opacity);   '>
-  <Link to='movies/new'>New Movies</Link>
+  <Link to='/movies/new'>New Movies</Link>
+  <SearchBox value={searchQuery}  handleSearchbox={handleSearchbox}></SearchBox>
     <Movielist  	className='py-1' 
- items={Genre} allMovies={allMovies} genreSelect={genreSelect} ></Movielist>
+ items={callGenre} allMovies={allMovies} genreSelect={genreSelect} ></Movielist>
    </div>
     <div className='py-5'>
       <Moviestable sort={moviesToDisplay} btnHandler={btnHandler}  handleSorting={handleSorting} ></Moviestable>

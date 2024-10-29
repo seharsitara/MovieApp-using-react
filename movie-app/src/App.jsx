@@ -31,8 +31,8 @@ function App() {
       <Route path="/moviestitle/:id" element={<Movieform/>}></Route>
       <Route path="/registrationform" element={<Register/>}></Route>
       <Route path="/moviesform" element={<Movieloginform />} />
-        
-      <Route path="/loginform" element={<Loginform/>}></Route>
+      <Route path="/movies/:id" element={<Movieloginform />} />
+     <Route path="/loginform" element={<Loginform/>}></Route>
       <Route path="/movies" element={<Movies/>}></Route>
       <Route path="/customer" element={<Customer/>}></Route>
      <Route path="/rental" element={<Rental/>}></Route>

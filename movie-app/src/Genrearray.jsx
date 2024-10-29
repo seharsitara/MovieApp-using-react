@@ -1,21 +1,23 @@
-const Genrearray=()=>{
-  const genres = [
-    {
-        id: 1,
+
+  export const genres = [
+
+     {
+        id: "1",
         name: "Comedy"
     },
     {
-        id: 2,
+        id: "2",
         name: "Thriller"
     },
     {
-        id: 3,
+        id: "3",
         name: "Action"
     }
-];
 
-return genres;
-}
+]
+export function getGenres() {
+    return genres.filter(g => g);
+  }
+  
 
-export default Genrearray;
 
