@@ -1,40 +1,37 @@
-import _ from 'lodash';
-import React from 'react';
-const pagination=(props)=>{
+import _ from "lodash";
+import React from "react";
 
-  
+const Pagination = (props) => {
+  const { movieCount, pageCount, currentPage, onPageChange } = props;
 
+  console.log(`Current Page: ${currentPage}`);
+  console.log(`Total Movies: ${movieCount}`);
+  const btnCount = Math.ceil(movieCount / pageCount);
 
+  if (btnCount === 1) return null;
 
+  const noOnBtn = _.range(1, btnCount + 1);
+  console.log(`Buttons: ${noOnBtn}`);
 
-
-  const  {movieCount,pageCount,currentPage}=props;
-  
-  console.log(`page: ${currentPage}`);
-  console.log(movieCount)
-  const btnCount= Math.ceil(movieCount/pageCount);
-  if(btnCount===1) return null;
-  const noOnBtn=_.range(1, btnCount + 1);
-   console.log(`buttons : ${noOnBtn}`)
-
-    
-
-
-
-  return(
-    
-    <ul className='flex  items-center  justify-center w-32	width: 8rem  h-16	height: 4rem	position: relative left-20	left: 5rem max-w-xs	max-width: 20rem;'>
-      {noOnBtn.map((page)=>(
-         <li  key={page} className={`text-4xl	font-size: 2.25rem line-height: 2.5rem  p-2	padding: 0.5rem line-height: 2.5rem rounded	border-radius: 0.25rem my-1 bg-red-700	background-color: rgb(185 28 28)  ${currentPage===page ?  "bg-red-950	background-color: rgb(69 10 10)": " bg-red-700	background-color: rgb(185 28 28) " }` }> <a href="#"   onClick={()=>  props.onPageChange(page)}   >{page}</a>
-         </li>
-     ) )}
-      
-    
-    
-      
+  return (
+    <ul className="flex items-center justify-center space-x-2 mt-4">
+      {noOnBtn.map((page) => (
+        <li key={page}>
+          <a
+            href="#"
+            onClick={() => onPageChange(page)}
+            className={`px-4 py-2 text-lg font-semibold rounded-lg border shadow-md transition-all ${
+              currentPage === page
+                ? "bg-red-800 text-white border-red-800"
+                : "bg-red-500 text-white hover:bg-red-600 border-red-500"
+            }`}
+          >
+            {page}
+          </a>
+        </li>
+      ))}
     </ul>
-    
   );
-}
+};
 
-export default pagination;
+export default Pagination;

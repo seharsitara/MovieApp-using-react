@@ -128,7 +128,8 @@ import {Link} from "react-router-dom";
     console.log('Genre not found or has no name');
   }
   movieDb.genre = foundGenre ? foundGenre.name : undefined;*/
- movieDb.genre = genresAPI.genres.find(g =>(g.id) === (movie.genre));
+ movieDb.genre = genresAPI.genres.find(g => g.id ===  String(movie.genre));
+ 
  console.log(`genre ${movieDb.genre}`)
     movieDb.stock=movie.stock;
     console.log(`stock  ${movieDb.stock}`)

@@ -1,64 +1,68 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import  logo from './assets/logo.jpg'
-import {Link,useLocation}  from "react-router-dom";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import logo from "./assets/logo.jpg";
+import { Link } from "react-router-dom";
 
+const Nav = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-const Nav=()=>{
-    const [isOpen,setIsOpen]=useState(false);
-    //const location = useLocation();
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
-  // If the path is '/loginform', the navbar will be hidden
-   //const showNavBar = location.pathname !== '/vidly';
-   
-    
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
 
-const btnHandler=()=>{
-  setIsOpen(!isOpen);
-  
-}
+  return (
+    <div className="w-full fixed top-0 left-0 bg-red-900 z-50">
+      <nav className="flex items-center justify-between px-4 md:px-8 py-5 text-white">
+        {/* Logo */}
+        <div className="w-20 md:w-32">
+          <img src={logo} alt="Logo" className="object-cover" />
+        </div>
 
-const onNav=()=>{
-  setIsOpen(false);
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex items-center space-x-8 text-lg font-medium">
+          <li className="hover:text-gray-200 border-b-2 border-transparent hover:border-white transition">
+            <Link to="/movies">Movies</Link>
+          </li>
+          <li className="hover:text-gray-200 border-b-2 border-transparent hover:border-white transition">
+            <Link to="/loginform">Login</Link>
+          </li>
+        </ul>
 
-}
+        {/* Hamburger Menu Button */}
+        <button
+          className="block md:hidden text-white focus:outline-none"
+          onClick={toggleMenu}
+        >
+          <FontAwesomeIcon icon={isOpen ? faTimes : faBars} size="2x" />
+        </button>
 
-     return(
-    <div className='md:w-full w-full absolute top-0 left-0  bg-white'>
-    <nav className="flex items-center justify-between text-black md:px-6 px-4 " >
-     
-       <div className='w-40'>
-      <img src={logo} />
-    </div>
-    
-    <ul className="hidden md:flex md:items-center md:justify-between md:gap-4 font-semibold text-xl  xl:text-2xl md:cursor-pointer lg:gap-8">
-        
-        <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/movies">Movies </Link></li>
-        <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/customer">Customer</Link></li>
-        <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/rental">Rental</Link></li>
-        <li className="p-3  hover:text-red-900 hover:border-b-4 rounded-sm border-b-red-900 "><Link to="/loginform">Login</Link></li>
-      </ul>
-
-      <button className='block md:hidden  cursor-pointer' onClick={btnHandler}  >
-      <FontAwesomeIcon icon={faBars}  size='2x' />
-      </button>
-     
-     {isOpen && (
-      <div className='md:hidden  absolute top-16 left-0 right-0 w-full bg-red-900 flex flex-col items-center font-semibold text-medium text-white cursor-pointer z-50'> 
-      
-        
-         <li className='w-full p-4 text-center list-none  hover:bg-red-950'> <Link to='/movies' onClick={onNav}>Movies</Link></li>
-         <li className='w-full p-4 text-center list-none  hover:bg-red-950'> <Link to='/customer' onClick={onNav}>Customer</Link></li>
-         <li className='w-full p-4 text-center list-none  hover:bg-red-950'> <Link to='/rental' onClick={onNav}>Rental</Link></li>
-         <li  className='w-full p-4 text-center list-none  hover:bg-red-950'> <Link to='/loginform' onClick={onNav} >Login</Link></li>
-      
-      </div>
-
-    ) }
-    </nav>
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-red-800 text-white shadow-lg">
+            <ul className="flex flex-col items-center space-y-4 py-4">
+              <li
+                className="w-full text-center py-2 hover:bg-red-700 transition"
+                onClick={closeMenu}
+              >
+                <Link to="/movies">Movies</Link>
+              </li>
+              <li
+                className="w-full text-center py-2 hover:bg-red-700 transition"
+                onClick={closeMenu}
+              >
+                <Link to="/loginform">Login</Link>
+              </li>
+            </ul>
+          </div>
+        )}
+      </nav>
     </div>
   );
+};
 
-}
 export default Nav;

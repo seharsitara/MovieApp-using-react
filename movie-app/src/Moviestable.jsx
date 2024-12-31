@@ -1,56 +1,80 @@
 import React from "react";
-import Like from "./Like";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
+const Moviestable = (props) => {
+  const { sort, btnHandler, handleSorting } = props;
 
-const Moviestable=(props)=>{
-
-  
-  
-
-  const {sort,btnHandler,handleSorting}=props;
-  return(
-    <table className='bg-gray-200	background-color: rgb(229 231 235) max-w-24	max-width: 6rem; /* 96px */ '>
-    <thead>
-      <tr>
-        <th onClick={()=> handleSorting('title')}>Title</th>
-        <th onClick={()=> handleSorting('genre.name')}>Genre</th>
-        <th onClick={()=> handleSorting('stock')}>Stock</th>
-        <th onClick={()=> handleSorting('rating')}>Rate</th>
-      </tr>
-    </thead>
-    <tbody >
-    
-      
-       
-        {sort.map((movie)=>(
-          <tr key={movie.id} 	 >
-            <td className=' m-20	margin: 5rem; /* 80px */ p-3.5	padding: 0.875rem; /* 14px */'><Link to={`/moviestitle/${movie.id}`} >{movie.title}</Link></td>
-            <td className=' m-20	margin: 5rem;/* 80px */ padding: 0.875rem; /* 14px */'>{movie.genre ? movie.genre.name :"na"} </td>
-            <td className='  m-20	margin: 5rem; /* 80px */ p-3.5 padding: 0.875rem; /* 14px */'>{movie.stock} </td>
-            <td className=' m-20	margin: 5rem; /* 80px */ p-3.5  padding: 0.875rem; /* 14px */'>{movie.rating} </td>
-            <td className='  m-20	margin: 5rem; /* 80px */ p-3.5  padding: 0.875rem; /* 14px */'>
-              <Like 
-              // liked={movie.liked}
-               // onClick={()=> likedBtn(movie)}
+  return (
+    <div className="w-full p-2 mt-10 shadow-lg overflow-x-auto">
+      <table className="table-auto w-full rounded-md">
+        {/* Table Head */}
+        <thead>
+          <tr>
+            <th
+              className="p-6 text-center cursor-pointer bg-red-900 text-white font-semibold text-lg hover:bg-red-950 transition-all select-none focus:outline-none"
+              onClick={() => handleSorting("title")}
             >
-              </Like>
+              Title
+            </th>
+            <th
+              className="p-6 text-center cursor-pointer bg-red-900 text-white font-semibold text-lg hover:bg-red-950 transition-all select-none focus:outline-none"
+              onClick={() => handleSorting("genre.name")}
+            >
+              Genre
+            </th>
+            <th
+              className="p-6 text-center cursor-pointer bg-red-900 text-white font-semibold text-lg hover:bg-red-950 transition-all select-none focus:outline-none"
+              onClick={() => handleSorting("stock")}
+            >
+              Stock
+            </th>
+            <th
+              className="p-6 text-center cursor-pointer bg-red-900 text-white font-semibold text-lg hover:bg-red-950 transition-all select-none focus:outline-none"
+              onClick={() => handleSorting("rating")}
+            >
+              Rate
+            </th>
+            <th className="p-6 text-center bg-red-900 text-white font-semibold text-lg">
+              Action
+            </th>
+          </tr>
+        </thead>
+
+        {/* Table Body */}
+        <tbody>
+          {sort.map((movie) => (
+            <tr key={movie.id} className="hover:bg-gray-100">
+              <td className="p-6 text-center text-sm md:text-base">
+                <Link
+                  to={`/moviestitle/${movie.id}`}
+                  className="text-blue-500 hover:underline focus:outline-none"
+                >
+                  {movie.title}
+                </Link>
               </td>
-              <td  className= '  m-20	margin: 5rem; /* 80px */ p-3.5 padding: 0.875rem; /* 14px */'>
+              <td className="p-6 text-center text-sm md:text-base">
+                {movie.genre ? movie.genre.name : "N/A"}
+              </td>
+              <td className="p-6 text-center text-sm md:text-base">
+                {movie.stock}
+              </td>
+              <td className="p-6 text-center text-sm md:text-base">
+                {movie.rating}
+              </td>
+              <td className="p-6 text-center">
                 <button
-                  onClick={()=>  btnHandler(movie)}
-                  className='bg-red-700	background-color: rgb(185 28 28) rounded	border-radius: 0.25rem  p-1	padding: 0.25rem '>
+                  onClick={() => btnHandler(movie)}
+                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm md:text-base focus:outline-none"
+                >
                   Delete
                 </button>
               </td>
-              
-            
-          </tr>
-      )  )}
-      
-    </tbody>
-  </table>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
-}
+};
 
 export default Moviestable;

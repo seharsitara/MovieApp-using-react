@@ -1,26 +1,34 @@
 import React from "react";
-const Movielist=(props)=>{
-const {items,allMovies,genreSelect}=props;
-console.log(`itmsss:${items}`)
+import {Link} from "react-router-dom";
 
- return(
+
+const Movielist = (props) => {
+  const { items, allMovies, genreSelect } = props;
+  return (
+    <ul className="w-full bg-red-900 shadow-md mt-4 rounded-lg p-4">
      
-        <ul className="cursor-pointer">
-        {items.map((item)=>(
-           <li   key={item.id}  className={`p-0.5	padding: 0.125rem ${ genreSelect && genreSelect.id===item.id ?  "bg-slate-600	background-color: rgb(71 85 105)  "
- :" bg-gray-300	--tw-bg-opacity: 1 ; background-color: rgba(209, 213, 219, var(--tw-bg-opacity)"  } `}
- onClick={()=> allMovies(item)} >
-          {item.name} 
-         
-          </li>
 
-        ))}
-         
-   </ul>
-      
-
+      {items.map((item) => (
+        <li
+          key={item.id}
+          className={`p-2 rounded-lg mb-2 cursor-pointer ${
+            genreSelect && genreSelect.id === item.id
+              ? "bg-red-950 text-white"
+              : "bg-gray-200 text-black"
+          }`}
+          onClick={() => allMovies(item)}
+        >
+          
+          <span className="block truncate">{item.name}</span>
+        </li>
+      ))}
+    </ul>
   );
-}
+};
 
 export default Movielist;
+
+
+
+
 

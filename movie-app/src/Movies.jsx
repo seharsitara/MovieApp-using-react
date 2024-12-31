@@ -126,22 +126,43 @@ const[order,setOrder]=useState('asc');
    
   return(
     <>
-    <div>
-     
-  <div className='m-12	margin: 3rem;  border-2 border-light-blue-100 h-36	height: 9rem; p-3	padding: 0.75rem; bg-gray-300	--tw-bg-opacity: 1;
-background-color: rgba(209, 213, 219, var(--tw-bg-opacity);   '>
-  <Link to='/movies/new'>New Movies</Link>
-  <SearchBox value={searchQuery}  handleSearchbox={handleSearchbox}></SearchBox>
-    <Movielist  	className='py-1' 
- items={callGenre} allMovies={allMovies} genreSelect={genreSelect} ></Movielist>
-   </div>
-    <div className='py-5'>
-      <Moviestable sort={moviesToDisplay} btnHandler={btnHandler}  handleSorting={handleSorting} ></Moviestable>
-   
-   <Pagination movieCount={filteredMov.length} pageCount={pageCount}  onPageChange={pageHandler}  currentPage={currentPage}></Pagination>
-   </div>
-   </div>
-    </>
+    <div className="flex flex-row gap-5 md:gap-10 lg:flex-col-1 w-full mt-20 lg:gap-20 ">
+  {/* Left Section */}
+  <div className="mt-28 md:mt-16">
+    <Link
+      to="/movies/new"
+      className="text-black bg-red-900 p-2 rounded-lg md:text-center mb-5"
+    >
+      New Movies
+    </Link>
+    <SearchBox className=""
+    value={searchQuery} handleSearchbox={handleSearchbox}
+     />
+    <Movielist
+      className=""
+      items={callGenre}
+      allMovies={allMovies}
+      genreSelect={genreSelect}
+    />
+  </div>
+
+  {/* Right Section */}
+  <div className="mt-14 md:mt-2">
+    <Moviestable
+      sort={moviesToDisplay}
+      btnHandler={btnHandler}
+      handleSorting={handleSorting}
+    />
+    <Pagination
+      movieCount={filteredMov.length}
+      pageCount={pageCount}
+      onPageChange={pageHandler}
+      currentPage={currentPage}
+    />
+  </div>
+</div>
+
+</>
   );
 }
 
