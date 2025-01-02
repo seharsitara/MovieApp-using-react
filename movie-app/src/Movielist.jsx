@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 const Movielist = (props) => {
   const { items, allMovies, genreSelect } = props;
   return (
-    <ul className="w-full bg-red-900 shadow-md mt-4 rounded-lg p-4">
+    <ul className="w-full bg-red-900 shadow-md mt-4  rounded-lg p-4">
      
 
       {items.map((item) => (

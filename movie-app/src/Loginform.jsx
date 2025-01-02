@@ -1,79 +1,123 @@
 import React, { useState } from "react";
 import Joi from "joi";
 
-const Loginform=()=>{
-       
-  const [data,setData]=useState({
-         username:'',
-         password:''
+const Loginform = () => {
+  const [data, setData] = useState({
+    username: "",
+    password: "",
   });
-  const [errors,setErrors]=useState({
-   
-});
 
+  const [errors, setErrors] = useState({});
 
-const schema= Joi.object({
-   username: Joi.string().min(3).required().label('Username'),
-  password: Joi.string().min(6).required().label('Password')
-})
+  const schema = Joi.object({
+    username: Joi.string().min(3).required().label("Username"),
+    password: Joi.string().min(6).required().label("Password"),
+  });
 
-const onChangeHandler=(e)=>{
-  const {name,value}=e.target;
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
 
     setData({
       ...data,
-      [name]:value
+      [name]: value,
     });
-  
+
     const { error } = schema.extract(name).validate(value);
-  setErrors({ ...errors, [name]: error ? error.details[0].message : null });
-    
-}
+    setErrors({ ...errors, [name]: error ? error.details[0].message : null });
+  };
 
-
-
-
-  const handleSubmit=(e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
-     const validation=schema.validate(data);
+    const validation = schema.validate(data);
 
-     if (validation.error) {
+    if (validation.error) {
       const errorMessages = {};
-      validation.error.details.forEach(detail => {
-        errorMessages[detail.path[0]] = detail.message; // Add errors
+      validation.error.details.forEach((detail) => {
+        errorMessages[detail.path[0]] = detail.message;
       });
-      setErrors(errorMessages); // Show errors
-      return; // Stop submission
-
-
-
+      setErrors(errorMessages);
+      return;
     }
+  };
 
-  }
-  
-  const hasErrors = Object.values(errors).some(error => error !== null && error !== undefined);
-  console.log(hasErrors)
-  // Check if the form is valid: no errors and all data fields are non-empty
-  const isFormValid = !hasErrors && Object.keys(data).every(key => data[key].trim() !== '');
-  
-  
-  return(
-    <div className="w-full mt-28">
-  <form className="text-2xl font-semibold md:w-3/4 " onSubmit={handleSubmit}>
-    <label htmlFor="username" className="block absolute md:left-28 left-10">UserName</label>
-    <input  type="text" id="username" name="username" value={data.username} onChange={onChangeHandler} autoComplete="current-username" className=" border-2 border-black       rounded md:p-3 p-2 md:w-full md:ml-20 mt-10 w-full focus:border-blue-500 
-     focus:outline-none  focus:bg-blue-50" autoFocus/>
-    {errors.username && (<span  className={`${errors.username.includes('correct') ?  'bg-green-200 ': 'bg-red-200 ' }font-medium text-base p-2 rounded inline-block md:w-full md:ml-20  w-full`}>{errors.username}</span>)
-    }
-     <br/>
-    <label htmlFor="password" className="block absolute md:left-28 left-10 mt-10">Password</label>
-    <input type="password" id="password" name="password" value={data.password} onChange={onChangeHandler}  autoComplete="current-password" className="border-2 border-black rounded md:p-3 p-2 md:w-full md:ml-20 mt-20 w-full focus:border-blue-500 
-     focus:outline-none s focus:bg-blue-50 " autoFocus/>
-    {errors.password && (<span  className={`font-medium text-base p-2 rounded inline-block md:w-full md:ml-20  w-full ${errors.password.includes('correct') ?  'bg-green-200 ': 'bg-red-200 '}`}>{errors.password}</span>)
-    }
-    <button className={`cursor-pointer border-2 border-red-900 rounded md:mt-10 absolute md:left-32 md:p-2 left-10 p-2 mt-40 ${!isFormValid ? "bg-red-400 cursor-not-allowed" : "bg-red-900 cursor-pointer" }`} disabled={!isFormValid} >Login</button>
-  </form>
-  </div>
+  const hasErrors = Object.values(errors).some(
+    (error) => error !== null && error !== undefined
   );
-}
+
+  const isFormValid =
+    !hasErrors &&
+    Object.keys(data).every((key) => data[key].trim() !== "");
+
+  return (
+    <div className="w-full mt-32 px-4">
+      <form
+        className="text-lg font-semibold max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg"
+        onSubmit={handleSubmit}
+      >
+        <div className="mb-6">
+          <label
+            htmlFor="username"
+            className="block text-gray-700 mb-2 font-medium"
+          >
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={data.username}
+            onChange={onChangeHandler}
+            autoComplete="current-username"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:border-red-900 focus:ring-2 focus:ring-red-900 focus:outline-none"
+            autoFocus
+          />
+          {errors.username && (
+            <span
+              className={`block mt-2 text-sm p-2 rounded-lg font-medium text-white ${errors.username.includes("correct") ? "bg-green-500" : "bg-red-500"}`}
+            >
+              {errors.username}
+            </span>
+          )}
+        </div>
+
+        <div className="mb-6">
+          <label
+            htmlFor="password"
+            className="block text-gray-700 mb-2 font-medium"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={data.password}
+            onChange={onChangeHandler}
+            autoComplete="current-password"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:border-red-900 focus:ring-2 focus:ring-red-900 focus:outline-none"
+          />
+          {errors.password && (
+            <span
+              className={`block mt-2 text-sm p-2 rounded-lg font-medium text-white ${errors.password.includes("correct") ? "bg-green-500" : "bg-red-500"}`}
+            >
+              {errors.password}
+            </span>
+          )}
+        </div>
+
+        <button
+          className={`w-full py-3 text-white bg-red-900 font-medium rounded-lg transition ${
+            !isFormValid
+              ? "bg-red-300 cursor-not-allowed"
+              : "bg-red-900 hover:bg-red-950"
+          }`}
+          disabled={!isFormValid}
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  );
+};
+
 export default Loginform;

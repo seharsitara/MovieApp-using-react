@@ -5,7 +5,7 @@ const Moviestable = (props) => {
   const { sort, btnHandler, handleSorting } = props;
 
   return (
-    <div className="w-full p-2 mt-10 shadow-lg overflow-x-auto">
+    <div className="w-full p-2 mt-4 shadow-lg overflow-x-auto">
       <table className="table-auto w-full rounded-md">
         {/* Table Head */}
         <thead>
