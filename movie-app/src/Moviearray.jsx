@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
           id: "1",
           title: "Superbad",
           genre:  {
-            id: "1",
+            _id: "1",
             name: "Comedy"
         },
           stock: 15,
@@ -18,7 +18,7 @@ import {Link} from "react-router-dom";
           id: "2",
           title: "Step Brothers",
           genre:  {
-            id: "1",
+            _id: "1",
             name: "Comedy"
         },
           stock: 12,
@@ -28,7 +28,7 @@ import {Link} from "react-router-dom";
           id: "3",
           title: "The Grand Budapest Hotel",
           genre:  {
-            id: "1",
+            _id: "1",
             name: "Comedy"
         },
           stock: 8,
@@ -40,7 +40,7 @@ import {Link} from "react-router-dom";
           id: "4",
           title: "Se7en",
           genre:  {
-        id: "2",
+        _id: "2",
         name: "Thriller"
     },
           stock: 10,
@@ -50,7 +50,7 @@ import {Link} from "react-router-dom";
           id:"5",
           title: "Fight Club",
           genre:  {
-        id: "2",
+        _id: "2",
         name: "Thriller"
     },
           stock: 7,
@@ -60,7 +60,7 @@ import {Link} from "react-router-dom";
           id: "6",
           title: "Gone Girl",
           genre:  {
-        id: "2",
+        _id: "2",
         name: "Thriller"
           },
           stock: 5,
@@ -72,7 +72,7 @@ import {Link} from "react-router-dom";
           id: "7",
           title: "Mad Max: Fury Road",
           genre:  {
-            id: "3",
+            _id: "3",
             name: "Action"
         },
           stock: 9,
@@ -82,7 +82,7 @@ import {Link} from "react-router-dom";
           id: "8",
           title: "John Wick",
           genre:   {
-        id:"3",
+        _id:"3",
         name: "Action"
     },
           stock: 14,
@@ -92,7 +92,7 @@ import {Link} from "react-router-dom";
           id: "9",
           title: "Die Hard",
           genre: {
-            id: "3",
+            _id: "3",
             name: "Action"
         },
           stock: 11,

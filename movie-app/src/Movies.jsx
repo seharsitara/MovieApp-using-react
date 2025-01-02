@@ -32,7 +32,15 @@ const Movies = () => {
     );
   } else if (genreSelect && genreSelect._id) {
     filteredMov = callMovie.filter((m) => m.genre._id === genreSelect._id);
+  } else {
+    filteredMov = callMovie; // Show all movies when "All Genres" is selected
   }
+
+
+  console.log("Selected Genre:", genreSelect);
+console.log("Movies:", callMovie);
+console.log("Genres:", callGenre);
+
 
   const sorting = _.orderBy(filteredMov, [path], [order]);
   const startIndex = (currentPage - 1) * pageCount;
