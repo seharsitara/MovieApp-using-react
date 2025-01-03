@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -16,10 +16,22 @@ import Register from './Register'
 import Movieloginform from './Movieloginform'
 
 
+
 function App() {
   
     
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    const storedLoginStatus = localStorage.getItem("isLoggedIn");
+    if (storedLoginStatus === "true") {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  // Update localStorage when login state changes
+  useEffect(() => {
+    localStorage.setItem("isLoggedIn", isLoggedIn);
+  }, [isLoggedIn]);
   return (
     <>
         <div>
@@ -32,7 +44,12 @@ function App() {
       <Route path="/registrationform" element={<Register/>}></Route>
       <Route path="/moviesform" element={<Movieloginform />} />
       <Route path="/movies/:id" element={<Movieloginform />} />
-     <Route path="/loginform" element={<Loginform/>}></Route>
+     <Route path="/loginform" element={<Loginform setIsLoggedIn={setIsLoggedIn}/>}></Route>
+     <Route
+          path="/movies"
+          element={isLoggedIn ? <Movies /> : <Navigate to="/loginform" />}
+        />
+       
       <Route path="/movies" element={<Movies/>}></Route>
       <Route path="/customer" element={<Customer/>}></Route>
      <Route path="/rental" element={<Rental/>}></Route>

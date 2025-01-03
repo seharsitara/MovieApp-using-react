@@ -6,10 +6,21 @@ import { movieArray, getMovies } from './Moviearray';
 import { genres, getGenres } from './Genrearray';
 import SearchBox from './Searchbox';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import _ from "lodash";
 
+const loadFromLocalStorage = (key) => {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
+};
+
+const saveToLocalStorage = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
 const Movies = () => {
+  const navigate = useNavigate();
+
   const [callMovie, setCallMovie] = useState([]);
   const [pageCount, setPageCount] = useState(4);
   const [searchQuery, setSearchQuery] = useState("");
@@ -71,46 +82,72 @@ console.log("Genres:", callGenre);
     }
   };
 
-  return (
-    <div className="w-full mt-28 px-4">
-      <div className="flex flex-col lg:flex-row gap-10">
-        {/* Left Section */}
-        <div className="lg:w-1/4 sm:w-1/2 w-3/4 md:mt-8 mt-16 lg:mx-2 mx-auto">
-          <Link
-            to="/movies/new"
-            className="block bg-red-900 text-white py-2 px-2 rounded-lg text-center hover:bg-red-700 transition mb-6"
-          >
-            New Movies
-          </Link>
-          <SearchBox
-            value={searchQuery}
-            handleSearchbox={handleSearchbox}
-            className="mb-6"
-          />
-          <Movielist
-            items={callGenre}
-            allMovies={allMovies}
-            genreSelect={genreSelect}
-            className="bg-gray-50 p-4 rounded-lg shadow"
-          />
-        </div>
 
-        {/* Right Section */}
-        <div className="lg:w-3/4">
-          <Moviestable
-            sort={moviesToDisplay}
-            handleSorting={handleSorting}
-            className="mb-6 bg-gray-50 p-4 rounded-lg shadow"
-          />
-          <Pagination
-            movieCount={filteredMov.length}
-            pageCount={pageCount}
-            onPageChange={pageHandler}
-            currentPage={currentPage}
-          />
-        </div>
-      </div>
+  const deleteBtnHandle = (movie) => {
+    console.log("Movie passed to deleteBtnHandle:", movie);
+    const updatedMovies = callMovie.filter((m) => m.id !== movie.id);
+    setCallMovie(updatedMovies);
+    saveToLocalStorage('movies', updatedMovies);
+  };
+  
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn"); // Clear login status
+    navigate("/loginform");
+    window.location.reload();
+
+  };
+
+  return (
+    <div className="w-full mt-16 px-4 relative">
+  {/* Logout Button */}
+  <button
+    onClick={handleLogout}
+    className="absolute top-2 right-4 bg-red-400 text-white py-2 px-4 rounded-lg hover:bg-red-400 transition"
+  >
+    Logout
+  </button>
+
+  <div className="flex flex-col lg:flex-row gap-10">
+    {/* Left Section */}
+    <div className="lg:w-1/4 sm:w-1/2 w-3/4 md:mt-20 mt-20 lg:mx-2 mx-auto">
+      <Link
+        to="/movies/new"
+        className="block bg-red-900 text-white py-2 px-2 rounded-lg text-center hover:bg-red-700 transition mb-6"
+      >
+        New Movies
+      </Link>
+      <SearchBox
+        value={searchQuery}
+        handleSearchbox={handleSearchbox}
+        className="mb-6"
+      />
+      <Movielist
+        items={callGenre}
+        allMovies={allMovies}
+        genreSelect={genreSelect}
+        className="bg-gray-50 p-4 rounded-lg shadow"
+      />
     </div>
+
+    {/* Right Section */}
+    <div className="lg:w-3/4">
+      <Moviestable
+        sort={moviesToDisplay}
+        deleteBtnHandle={deleteBtnHandle}
+        handleSorting={handleSorting}
+        className="mb-6 bg-gray-50 p-4 rounded-lg shadow"
+      />
+      <Pagination
+        movieCount={filteredMov.length}
+        pageCount={pageCount}
+        onPageChange={pageHandler}
+        currentPage={currentPage}
+      />
+    </div>
+  </div>
+</div>
+
   );
 };
 

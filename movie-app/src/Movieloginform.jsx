@@ -126,8 +126,8 @@ const Movieloginform = () => {
           {Array.isArray(genre) &&
             genre.map((g) => (
               <option
-                key={g.id}
-                value={g.id}
+                key={g._id}
+                value={g._id}
                 className="text-gray-700 hover:bg-blue-100 w-6"
               >
                 {g.name}

@@ -101,7 +101,9 @@ import {Link} from "react-router-dom";
   ];
 
   export function movieArray() {
-    return movies;
+    const savedMovies = localStorage.getItem("movies");
+  return savedMovies ? JSON.parse(savedMovies) : movies;
+    
   }
               
 
@@ -111,6 +113,8 @@ import {Link} from "react-router-dom";
   }
 
   
+  
+
    export function saveMovie(movie) {
     let movieDb=movies.find(m=>m.id === movie.id) || {};
     movieDb.title=movie.title;
@@ -128,7 +132,7 @@ import {Link} from "react-router-dom";
     console.log('Genre not found or has no name');
   }
   movieDb.genre = foundGenre ? foundGenre.name : undefined;*/
- movieDb.genre = genresAPI.genres.find(g => g.id ===  String(movie.genre));
+ movieDb.genre = genresAPI.genres.find(g => g._id ===  String(movie.genre));
  
  console.log(`genre ${movieDb.genre}`)
     movieDb.stock=movie.stock;
@@ -150,6 +154,9 @@ import {Link} from "react-router-dom";
       movieDb.id = Date.now().toString(); 
       movies.push(movieDb)
     }  
+
+    localStorage.setItem("movies", JSON.stringify(movies));
+
 
 
     // Assign a new ID for new movies

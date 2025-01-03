@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Moviestable = (props) => {
-  const { sort, btnHandler, handleSorting } = props;
+  const { sort, deleteBtnHandle, handleSorting } = props;
 
   return (
-    <div className="w-full p-2 mt-4 shadow-lg overflow-x-auto">
+    <div className="w-full p-2 mt-16 shadow-lg overflow-x-auto">
       <table className="table-auto w-full rounded-md">
         {/* Table Head */}
         <thead>
@@ -63,7 +63,7 @@ const Moviestable = (props) => {
               </td>
               <td className="p-6 text-center">
                 <button
-                  onClick={() => btnHandler(movie)}
+                  onClick={() => deleteBtnHandle(movie)}
                   className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm md:text-base focus:outline-none"
                 >
                   Delete
