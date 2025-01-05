@@ -37,18 +37,22 @@ const Register = () => {
       return;
     }
 
-    // Check if a user is already registered
-    const existingUser = localStorage.getItem("user");
-    if (existingUser) {
-      alert("A user is already registered. Please log in.");
+    // Retrieve existing users from localStorage
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Check if email is already registered
+    const emailExists = existingUsers.some((user) => user.email === data.email);
+    if (emailExists) {
+      alert("This email is already registered. Please log in.");
       navigate("/loginform");
       return;
     }
 
-    // Save user data in localStorage
-    localStorage.setItem("user", JSON.stringify(data));
-    alert("Registration successful! Please log in.");
-    navigate("/loginform");
+    // Save the new user
+    const updatedUsers = [...existingUsers, data];
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+    alert("Registration successful!");
+    navigate("/movies");
   };
 
   const hasErrors = Object.values(errors).some(
@@ -119,7 +123,7 @@ const Register = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className={`w-full py-3 text-white bg-red-900 font-medium rounded-lg transition ${
+          className={`w-full py-3 text-white font-medium rounded-lg transition ${
             !isFormValid
               ? "bg-red-300 cursor-not-allowed"
               : "bg-red-900 hover:bg-red-950"

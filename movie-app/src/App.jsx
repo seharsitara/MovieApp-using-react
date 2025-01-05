@@ -45,10 +45,10 @@ function App() {
       <Route path="/moviesform" element={<Movieloginform />} />
       <Route path="/movies/:id" element={<Movieloginform />} />
      <Route path="/loginform" element={<Loginform setIsLoggedIn={setIsLoggedIn}/>}></Route>
-     <Route
+     {/*<Route
           path="/movies"
           element={isLoggedIn ? <Movies /> : <Navigate to="/loginform" />}
-        />
+        />*/}
        
       <Route path="/movies" element={<Movies/>}></Route>
       <Route path="/customer" element={<Customer/>}></Route>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link ,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Joi from "joi";
 
 const LoginForm = ({ setIsLoggedIn }) => {
@@ -7,6 +7,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
+  // Joi validation schema
   const schema = Joi.object({
     username: Joi.string().min(3).required().label("Username"),
     password: Joi.string().min(6).required().label("Password"),
@@ -16,6 +17,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
 
+    // Validate individual field
     const { error } = schema.extract(name).validate(value);
     setErrors({ ...errors, [name]: error ? error.details[0].message : null });
   };
@@ -23,7 +25,8 @@ const LoginForm = ({ setIsLoggedIn }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const validation = schema.validate(data);
+    // Validate all fields
+    const validation = schema.validate(data, { abortEarly: false });
     if (validation.error) {
       const errorMessages = {};
       validation.error.details.forEach((detail) => {
@@ -33,19 +36,16 @@ const LoginForm = ({ setIsLoggedIn }) => {
       return;
     }
 
-    // Fetch stored user data
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (!storedUser) {
-      setErrors({ username: "No registered user found. Please register first." });
+    // Fetch stored users from localStorage
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+    const existingUser = storedUsers.find((user) => user.username === data.username);
+
+    if (!existingUser) {
+      setErrors({ username: "Username not found. Please register first." });
       return;
     }
 
-    if (storedUser.username !== data.username) {
-      setErrors({ username: "Username not found." });
-      return;
-    }
-
-    if (storedUser.password !== data.password) {
+    if (existingUser.password !== data.password) {
       setErrors({ password: "Incorrect password." });
       return;
     }
@@ -53,8 +53,13 @@ const LoginForm = ({ setIsLoggedIn }) => {
     // Login successful
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", "true");
+    alert("Login successful!");
     navigate("/movies");
   };
+
+  const hasErrors = Object.values(errors).some(
+    (error) => error !== null && error !== undefined
+  );
 
   return (
     <div className="w-full mt-32 px-4">
@@ -62,6 +67,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
         className="text-lg mb-8 font-semibold max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg"
         onSubmit={handleSubmit}
       >
+        {/* Username Field */}
         <div className="mb-6">
           <label htmlFor="username" className="block text-gray-700 mb-2 font-medium">
             Username
@@ -78,6 +84,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
           {errors.username && <span className="text-red-500">{errors.username}</span>}
         </div>
 
+        {/* Password Field */}
         <div className="mb-6">
           <label htmlFor="password" className="block text-gray-700 mb-2 font-medium">
             Password
@@ -94,20 +101,27 @@ const LoginForm = ({ setIsLoggedIn }) => {
           {errors.password && <span className="text-red-500">{errors.password}</span>}
         </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-3 text-white bg-red-900 font-medium rounded-lg"
+          className={`w-full py-3 text-white font-medium rounded-lg ${
+            hasErrors ? "bg-red-300 cursor-not-allowed" : "bg-red-900 hover:bg-red-950"
+          }`}
+          disabled={hasErrors}
         >
           Login
         </button>
       </form>
-       {/* Link to Registration */}
-       <Link
-        className="text-red-900 hover:underline focus:outline-none font-semibold"
-        to="/registrationform"
-      >
-        Register
-      </Link>
+
+      {/* Link to Registration */}
+      <div className="text-center mt-4">
+        <Link
+          className="text-red-900 hover:underline focus:outline-none font-semibold"
+          to="/registrationform"
+        >
+          Don't have an account? Register here.
+        </Link>
+      </div>
     </div>
   );
 };

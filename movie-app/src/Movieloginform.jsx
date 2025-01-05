@@ -69,13 +69,15 @@ const Movieloginform = () => {
     return errors;
   };
 
+  
   const changeHandler = (e) => {
     const { name, value } = e.target;
     const updatedValue = name === "genre" ? parseInt(value, 10) : value;
     setData({ ...data, [name]: updatedValue });
   };
 
-  const handleSubmit = (e) => {
+
+const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validate();
     setErrors(validationErrors || {});
@@ -85,8 +87,8 @@ const Movieloginform = () => {
   };
 
   const submitSave = () => {
-    saveMovie(data);
-    navigate("/movies");
+   saveMovie(data);
+   navigate("/movies");
   };
 
   if (!isFetched) {
@@ -123,8 +125,7 @@ const Movieloginform = () => {
           className="border border-gray-300 rounded-lg p-3 w-full focus:ring-2 focus:ring-red-900 focus:outline-none"
         >
           <option value="">Select a Genre</option>
-          {Array.isArray(genre) &&
-            genre.map((g) => (
+          {genre.map((g) => (
               <option
                 key={g._id}
                 value={g._id}

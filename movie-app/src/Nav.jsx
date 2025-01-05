@@ -17,7 +17,7 @@ const Nav = () => {
 
   return (
     <div className="w-full fixed top-0 left-0 bg-red-900 z-50 shadow-lg">
-      <nav className="flex items-center justify-between px-4 md:px-6 py-4 text-white">
+      <nav className="flex items-center justify-between px-6 md:px-8 py-4 text-white">
         {/* Logo */}
         <div className="w-20 md:w-32">
           <img src={logo} alt="Logo" className="object-cover rounded-full" />

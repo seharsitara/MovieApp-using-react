@@ -15,7 +15,9 @@ const loadFromLocalStorage = (key) => {
 };
 
 const saveToLocalStorage = (key, data) => {
-  localStorage.setItem(key, JSON.stringify(data));
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+ 
+ 
 };
 
 const Movies = () => {
@@ -84,19 +86,29 @@ console.log("Genres:", callGenre);
 
 
   const deleteBtnHandle = (movie) => {
-    console.log("Movie passed to deleteBtnHandle:", movie);
+    
+
+    // Proceed with deletion if the user is logged in
     const updatedMovies = callMovie.filter((m) => m.id !== movie.id);
+
+    // Update state with the new movies list
     setCallMovie(updatedMovies);
+
+    // Save the updated movie list to localStorage
     saveToLocalStorage('movies', updatedMovies);
   };
   
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn"); // Clear login status
-    navigate("/loginform");
-    window.location.reload();
-
+    console.log("Before Logout:", localStorage);  // Check current localStorage state
+    localStorage.removeItem("isLoggedIn");  // Remove login status
+    localStorage.removeItem("user");  // Remove the entire user object
+    localStorage.removeItem("movies");  // Remove the movies list
+    console.log("After Logout:", localStorage);  // Check if items were removed
+    navigate("/loginform");  // Navigate to login form
+    window.location.reload();  // Reload the page to reflect changes
   };
+  
 
   return (
     <div className="w-full mt-16 px-4 relative">
