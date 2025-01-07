@@ -50,7 +50,7 @@ function App() {
           element={isLoggedIn ? <Movies /> : <Navigate to="/loginform" />}
         />*/}
        
-      <Route path="/movies" element={<Movies/>}></Route>
+      <Route path="/movies" element={<Movies setIsLoggedIn={setIsLoggedIn}/>}></Route>
       <Route path="/customer" element={<Customer/>}></Route>
      <Route path="/rental" element={<Rental/>}></Route>
      <Route path="/not-found" element={<Notfound/>}></Route>

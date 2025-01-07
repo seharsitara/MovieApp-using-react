@@ -2,12 +2,13 @@ import Pagination from './Pagination';
 import Moviestable from './Moviestable';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Movielist from './Movielist';
-import { movieArray, getMovies } from './Moviearray';
+import { movieArray, getMovies,movies} from './Moviearray';
 import { genres, getGenres } from './Genrearray';
 import SearchBox from './Searchbox';
 import { useState, useEffect } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import _ from "lodash";
+
 
 const loadFromLocalStorage = (key) => {
   const data = localStorage.getItem(key);
@@ -16,11 +17,18 @@ const loadFromLocalStorage = (key) => {
 
 const saveToLocalStorage = (key, data) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
- 
+  if (isLoggedIn === "true") {
+    localStorage.setItem(key, JSON.stringify(data));
+    console.log(`Data saved to localStorage under key: ${key}`);
+  } else {
+    
+    console.log("User not logged in. Data not saved to localStorage.");
+  }
  
 };
 
-const Movies = () => {
+
+const Movies = ({setIsLoggedIn}) => {
   const navigate = useNavigate();
 
   const [callMovie, setCallMovie] = useState([]);
@@ -31,11 +39,20 @@ const Movies = () => {
   const [genreSelect, setGenreSelect] = useState(null);
   const [path, setPath] = useState('path');
   const [order, setOrder] = useState('asc');
+   
+
+
+
+  
 
   useEffect(() => {
+    
+    
+
     const genresList = [{ _id: "", name: "All Genres" }, ...getGenres()];
     setCallGenre(genresList);
     setCallMovie(movieArray());
+  
   }, []);
 
   let filteredMov = callMovie;
@@ -87,7 +104,7 @@ console.log("Genres:", callGenre);
 
   const deleteBtnHandle = (movie) => {
     
-
+                            
     // Proceed with deletion if the user is logged in
     const updatedMovies = callMovie.filter((m) => m.id !== movie.id);
 
@@ -98,12 +115,17 @@ console.log("Genres:", callGenre);
     saveToLocalStorage('movies', updatedMovies);
   };
   
+  
 
+  
   const handleLogout = () => {
     console.log("Before Logout:", localStorage);  // Check current localStorage state
-    localStorage.removeItem("isLoggedIn");  // Remove login status
-    localStorage.removeItem("user");  // Remove the entire user object
-    localStorage.removeItem("movies");  // Remove the movies list
+    localStorage.setItem("isLoggedIn", "false"); // Or remove it
+  localStorage.removeItem("isLoggedIn");  // Remove login status
+   localStorage.removeItem("user");  // Remove the entire user object
+    localStorage.removeItem("movies");// Remove the movies list
+    setCallMovie([]);
+
     console.log("After Logout:", localStorage);  // Check if items were removed
     navigate("/loginform");  // Navigate to login form
     window.location.reload();  // Reload the page to reflect changes

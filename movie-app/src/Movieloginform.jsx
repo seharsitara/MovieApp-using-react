@@ -88,7 +88,7 @@ const handleSubmit = (e) => {
 
   const submitSave = () => {
    saveMovie(data);
-   navigate("/movies");
+    navigate("/movies");
   };
 
   if (!isFetched) {
